@@ -10,12 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                cd TODO/todo_backend
-                npm install
-
-                cd ../todo_frontend
-                npm install
-                npm run build
+                ls -la
                 '''
             }
         }
@@ -52,4 +47,5 @@ pipeline {
             }
         }
     }
+
 }
