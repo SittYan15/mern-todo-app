@@ -23,7 +23,9 @@ stages {
 
     stage('Containerise') {
         steps {
-            sh 'docker build -t $IMAGE_NAME .'
+            sh '''
+            docker build -t $IMAGE_NAME .
+            '''
         }
     }
 
@@ -44,7 +46,9 @@ stages {
 
     stage('Verify') {
         steps {
-            sh 'docker images'
+            sh '''
+            docker images | grep finead-todo-app
+            '''
         }
     }
 }
