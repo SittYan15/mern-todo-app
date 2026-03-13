@@ -21,13 +21,21 @@ app.listen(PORT,
     console.log('Server listening on port: 5000')
 )
 
+// app.post('/add', (req, res) => {
+//   const { task } = req.body;
+//   TodoModel.create({ task })
+//       .then(result => res.json(result))
+//       .catch(err => console.log(err));
+   
+// });
+
 app.post('/add', (req, res) => {
   const { task } = req.body;
+
   TodoModel.create({ task })
-      .then(result => res.json(result))
-      .catch(err => console.log(err));
-   
-});
+  .then(result => res.json(result))
+  .catch(err => res.status(500).json(err));
+  });
 
 app.get('/get',(req,res)=>{
   TodoModel.find()
