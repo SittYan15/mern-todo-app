@@ -7,15 +7,7 @@ pipeline {
 
     stages {
 
-        stage('Build') {
-            steps {
-                sh '''
-                ls -la
-                '''
-            }
-        }
-
-        stage('Containerise') {
+        stage('Build Docker Image') {
             steps {
                 sh '''
                 docker build -t $IMAGE_NAME .
@@ -23,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Push') {
+        stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhub-creds',
@@ -33,7 +25,6 @@ pipeline {
                     sh '''
                     echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
                     docker push $IMAGE_NAME
-                    docker logout
                     '''
                 }
             }

@@ -1,16 +1,20 @@
-FROM node:alpine
+FROM node:20
 
 WORKDIR /app
 
-COPY TODO/ .
+COPY . .
 
-RUN cd todo_backend && npm install
-RUN cd todo_frontend && npm install && npm run build
+WORKDIR /app/TODO/todo_backend
+RUN npm install
 
-RUN mkdir -p /app/todo_backend/static
-RUN mv /app/todo_frontend/build /app/todo_backend/static/
+WORKDIR /app/TODO/todo_frontend
+RUN npm install
+RUN npm run build
 
-WORKDIR /app/todo_backend
+WORKDIR /app/TODO/todo_backend
+
+RUN mkdir -p static
+RUN cp -r /app/TODO/todo_frontend/build static/build
 
 EXPOSE 5000
 
